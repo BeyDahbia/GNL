@@ -6,7 +6,7 @@
 /*   By: dabey <dabey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 22:01:58 by dabey             #+#    #+#             */
-/*   Updated: 2019/12/12 20:24:46 by dabey            ###   ########.fr       */
+/*   Updated: 2019/12/17 21:23:38 by dabey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str[j++] = s1[i++];
 	i = 0;
 	while (s2[i])
-		str[j++] = s2[i++];
+	str[j++] = s2[i++];
 	str[j] = '\0';
 	return (str);
 }

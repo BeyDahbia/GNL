@@ -18,9 +18,14 @@ int        main()
 	if (fd == -1)
 		printf("probleme a lire : %d\n",fd);
 	res_gnl = get_next_line(fd, line);
+	if (res_gnl == -1)
+	printf ("probleme avec GNL \n");
+	/*
+	printf("******************Main************\n");
 	printf("res_gnl =%d\n",res_gnl);
 	printf("line Main =%s\n",*line);
 	close(fd);
 	free(line);
+	*/
     return (0);
 }

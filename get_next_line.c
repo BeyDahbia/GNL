@@ -6,7 +6,7 @@
 /*   By: dabey <dabey@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/29 22:01:32 by dabey             #+#    #+#             */
-/*   Updated: 2019/12/12 20:59:37 by dabey            ###   ########.fr       */
+/*   Updated: 2019/12/17 21:31:55 by dabey            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,29 @@ int	get_next_line(int fd, char **line)
 
 	i = 0;
 	len_read = 0;
-	if (fd < 0 || (!(buffer = (char *)ft_calloc(sizeof(char) , (BUFFER_SIZE + 1)))))
-		return (-1);
-	stock = ((!stock) ? ft_calloc(sizeof(char) , 0) : stock);
-	printf("/**strjoint stock et buf**/\n");
-	while (!(ft_strchr(buffer, '\n')) && (len_read = read(fd, buffer, BUFFER_SIZE)))
+	buffer = NULL;
+	if (fd < 0 || (!(buffer = ft_calloc(sizeof(char) , (BUFFER_SIZE + 1)))))
+	stock = (!(stock) ? ft_calloc(sizeof(char),0) : stock);
+	if (!stock)
 	{
-		if(len_read == -1 || (buffer[len_read] = '\0'))
-			return (-1);
-		stock = ft_strjoin(stock, buffer);
-		printf("%s\n", stock);
+		len_read = read(fd, buffer, BUFFER_SIZE);
+		stock = ft_strdup(buffer);
 	}
-	while (stock && stock[i] != '\n')
+	if (!(ft_strchr(stock, '\n')))
+		while ((len_read = read(fd, buffer, BUFFER_SIZE)) && ft_strchr(buffer, '\n'))
+		{
+			if (len_read == -1)
+				return (-1);
+			buffer[len_read] = '\0';
+			len_read = read(fd, buffer, BUFFER_SIZE);
+			stock = ft_strjoin(stock, buffer);
+		}
+	printf("stockGNLAV =%s\n",stock);
+	while (stock[i] != '\0' && stock[i] != '\n')
 		i++;
-
-	*line = ft_substr(stock, 0, i);
-	printf("line apres =%s\n", *line);
-		/*
-	stock = ft_substr(stock + i, 0, ft_strlen(stock + i));
-	printf("line apres =%s\n", stock);
-	*/
-//             freee tout         //
-	free(buffer);
+	*line = ft_substr(stock, 0, i - 1);
+	stock = ft_substr(stock + i, i, ft_strlen(stock + i));
+	printf("lineGNLAP =%s\n",*line);
+	printf("stockGNLAP =%s\n",stock);
 	return (1);
 }
